@@ -10,9 +10,9 @@
 
 @implementation NSNumber (RLArithmetic)
 
--(NSString *(^)(id))cou
+-(NSString *(^)(id))itself
 {
-    return self.stringValue.cou;
+    return self.stringValue.itself;
 }
 
 - (NSString *(^)(id))add
@@ -78,21 +78,6 @@
 - (NSString *(^)(short))formatToThousandsWithRoundDown
 {
     return self.stringValue.formatToThousandsWithRoundDown;
-}
-
-- (NSString *(^)(void))roundPlainAndDown
-{
-    return self.stringValue.roundPlainAndDown;
-}
-
--(NSString *(^)(void))roundPlainAndDownWithZeroFill
-{
-    return self.stringValue.roundPlainAndDownWithZeroFill;
-}
-
-- (NSString *(^)(void))formatToThousandsWithPlainAndDown
-{
-    return self.formatToThousandsWithPlainAndDown;
 }
 
 - (RLComparisonResult (^)(id))compare {

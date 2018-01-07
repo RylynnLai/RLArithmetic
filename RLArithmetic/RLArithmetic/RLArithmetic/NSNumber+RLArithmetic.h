@@ -42,7 +42,7 @@
 /**
  返回本身（NSString或NSNumber）
  */
-@property (nonatomic, copy, readonly) NSString *(^cou)(id num);
+@property (nonatomic, copy, readonly) NSString *(^itself)(id num);
 #pragma mark 格式化输出
 /**
  四舍五入（小数位数）
@@ -83,20 +83,6 @@
  只入不舍（小数位数）千分位格式化输出（逗号分割），末尾有0补位
  */
 @property (nonatomic, copy, readonly) NSString *(^formatToThousandsWithRoundUp)(short scale);
-
-#pragma mark 金额格式化处理
-/**
- 四舍五入保留四位小数，然后截取保留两位小数
- */
-@property (nonatomic, copy, readonly) NSString *(^roundPlainAndDown)(void);
-/**
- 四舍五入保留四位小数，然后截取保留两位小数，小数末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^roundPlainAndDownWithZeroFill)(void);
-/**
- 四舍五入保留四位小数，然后截取保留两位小数，小数末尾有0补位，并格式化为千分位
- */
-@property (nonatomic, copy, readonly) NSString *(^formatToThousandsWithPlainAndDown)(void);
 
 #pragma mark 大小比较
 /**

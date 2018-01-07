@@ -24,7 +24,7 @@ static NSDecimalNumber *secNum;
 static NSDecimalNumber *result;
 static NSDecimalNumber *tempNum;
 
-- (NSString *(^)(id))cou
+- (NSString *(^)(id))itself
 {
     //返回一个block
     return ^NSString *(id num) {
@@ -32,7 +32,7 @@ static NSDecimalNumber *tempNum;
         if (!(secNum = [self decimalNumberWithNum:num])) return [[NSDecimalNumber notANumber] stringValue];
         
         if (CheckNaN(secNum)) {
-            RLLog(@"NaN:(%@)", num);
+            RLLog(@"RLArithmetic--NaN:(%@)", num);
             return ErrorResult;
         } else {
             return [secNum stringValue];
@@ -49,7 +49,7 @@ static NSDecimalNumber *tempNum;
         if (!(secNum = [self decimalNumberWithNum:num])) return [[NSDecimalNumber notANumber] stringValue];
         
         if (CheckNaN(firNum) || CheckNaN(secNum)) {
-            RLLog(@"add--NaN:(%@).add(%@)", self, num);
+            RLLog(@"RLArithmetic--NaN:(%@).add(%@)", self, num);
             return ErrorResult;
         }
         result = [firNum decimalNumberByAdding:secNum];
@@ -66,7 +66,7 @@ static NSDecimalNumber *tempNum;
         if (!(secNum = [self decimalNumberWithNum:num])) return [[NSDecimalNumber notANumber] stringValue];
         
         if (CheckNaN(firNum) || CheckNaN(secNum)) {
-            RLLog(@"sub--NaN:(%@).sub(%@)", self, num);
+            RLLog(@"RLArithmetic--NaN:(%@).sub(%@)", self, num);
             return ErrorResult;
         }
         result = [firNum decimalNumberBySubtracting:secNum];
@@ -83,7 +83,7 @@ static NSDecimalNumber *tempNum;
         if (!(secNum = [self decimalNumberWithNum:num])) return [[NSDecimalNumber notANumber] stringValue];
         
         if (CheckNaN(firNum) || CheckNaN(secNum)) {
-            RLLog(@"mul--NaN:(%@).mul(%@)", self, num);
+            RLLog(@"RLArithmetic--NaN:(%@).mul(%@)", self, num);
             return ErrorResult;
         }
         NSDecimalNumber *result = [firNum decimalNumberByMultiplyingBy:secNum];
@@ -100,7 +100,7 @@ static NSDecimalNumber *tempNum;
         if (!(secNum = [self decimalNumberWithNum:num])) return [[NSDecimalNumber notANumber] stringValue];
         
         if (CheckNaN(firNum) || CheckNaN(secNum)) {
-            RLLog(@"div--NaN:(%@).div(%@)", self, num);
+            RLLog(@"RLArithmetic--NaN:(%@).div(%@)", self, num);
             return ErrorResult;
         } else if (CheckZero(secNum)) {
             RLLog(@"Divisor cannot be zero:(%@).div(%@)", self, num);
@@ -132,7 +132,7 @@ static NSDecimalNumber *tempNum;
         firNum = [self decimalNumberWithNum:self];
         if (firNum == nil) return [[NSDecimalNumber notANumber] stringValue];
         if (CheckNaN(firNum)) {
-            RLLog(@"roundPlain--NaN:%@", self);
+            RLLog(@"roundPlainWithZeroFill--NaN:%@", self);
             return ErrorResult;
         }
         
@@ -146,7 +146,7 @@ static NSDecimalNumber *tempNum;
         firNum = [self decimalNumberWithNum:self];
         if (firNum == nil) return [[NSDecimalNumber notANumber] stringValue];
         if (CheckNaN(firNum)) {
-            RLLog(@"roundPlain--NaN:%@", self);
+            RLLog(@"formatToThousandsWithRoundPlain--NaN:%@", self);
             return ErrorResult;
         }
         
@@ -175,7 +175,7 @@ static NSDecimalNumber *tempNum;
         firNum = [self decimalNumberWithNum:self];
         if (firNum == nil) return [[NSDecimalNumber notANumber] stringValue];
         if (CheckNaN(firNum)) {
-            RLLog(@"roundUp--NaN:%@", self);
+            RLLog(@"roundUpWithZeroFill--NaN:%@", self);
             return ErrorResult;
         }
         
@@ -189,7 +189,7 @@ static NSDecimalNumber *tempNum;
         firNum = [self decimalNumberWithNum:self];
         if (firNum == nil) return [[NSDecimalNumber notANumber] stringValue];
         if (CheckNaN(firNum)) {
-            RLLog(@"roundPlain--NaN:%@", self);
+            RLLog(@"formatToThousandsWithRoundUp--NaN:%@", self);
             return ErrorResult;
         }
         
@@ -218,7 +218,7 @@ static NSDecimalNumber *tempNum;
         firNum = [self decimalNumberWithNum:self];
         if (firNum == nil) return [[NSDecimalNumber notANumber] stringValue];
         if (CheckNaN(firNum)) {
-            RLLog(@"roundDown--NaN:%@", self);
+            RLLog(@"roundDownWithZeroFill--NaN:%@", self);
             return ErrorResult;
         }
         
@@ -231,32 +231,11 @@ static NSDecimalNumber *tempNum;
         firNum = [self decimalNumberWithNum:self];
         if (firNum == nil) return [[NSDecimalNumber notANumber] stringValue];
         if (CheckNaN(firNum)) {
-            RLLog(@"roundPlain--NaN:%@", self);
+            RLLog(@"formatToThousandsWithRoundDown--NaN:%@", self);
             return ErrorResult;
         }
         
         return [firNum formatToThousandsWithRoundingMode:NSRoundDown scale:scale];
-    };
-}
-
-- (NSString *(^)(void))roundPlainAndDown
-{
-    return ^NSString *() {
-        return self.roundPlain(4).roundDown(2);
-    };
-}
-
-- (NSString *(^)(void))roundPlainAndDownWithZeroFill
-{
-    return ^NSString *() {
-        return self.roundPlain(4).roundDownWithZeroFill(2);
-    };
-}
-
-- (NSString *(^)(void))formatToThousandsWithPlainAndDown
-{
-    return ^NSString *() {
-        return self.roundPlain(4).formatToThousandsWithRoundDown(2);
     };
 }
 
@@ -281,7 +260,7 @@ static NSDecimalNumber *tempNum;
 - (NSDecimalNumber *)decimalNumberWithNum:(id)num
 {
     if ([num isKindOfClass:[NSString class]]) {
-        if ([num isEqualToString:NotAnNum]) {//如果传进来的是约定的NotAnNum，就返回nil，后面计算步骤省去
+        if ([num isEqualToString:ErrorResult]) {//如果传进来的是约定的ErrorResult，就返回nil，后面计算步骤省去
             tempNum = nil;
         } else {
             tempNum = [NSDecimalNumber decimalNumberWithString:num];

@@ -44,10 +44,14 @@
     //    if (num) {
     //        NSLog(@"%@", num.add(@1).mul(nil));
     //    }
-    
+//    num.add(@1);
+    NSNumber *n = @32;
+//    @345.add(@23);
+    NSLog(@"%@", n.add(@"").add(@"afs"));
     //    NSLog(@"%@", NOT_NULL(num).add(@1));
     //
     //    NSLog(@"%@", CAL(num).add(num));
+    [self test];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -92,6 +96,9 @@
      */
     NSDecimalNumber *num6 = [num1 decimalNumberByDividingBy:num2];
     NSLog(@"num6 == %@",num6);
+    
+    NSDecimalNumber *num7 = [num1 decimalNumberByMultiplyingByPowerOf10:2];
+    NSLog(@"num6 == %@",num7);
     
     /*比较
      - (NSComparisonResult)compare:(NSNumber *)decimalNumber;
