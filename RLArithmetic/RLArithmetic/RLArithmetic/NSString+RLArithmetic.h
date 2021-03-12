@@ -20,82 +20,13 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "RLArithmeticiable.h"
 #define ErrorResult @""
 #define NotAnNum @"NaN"
 #define NOT_NULL(num) num == nil ? NotAnNum : num
 #define ITSELF(num) @"0".itself(num)
 
-typedef NS_ENUM(NSInteger, RLComparisonResult) {RLNaNError = INT_MIN, RLOrderedAscending = -1L, RLOrderedSame, RLOrderedDescending};
-
-@interface NSString (RLArithmetic)
-//在分类中@property不会生成_变量，也不会实现getter和setter方法,但是可以手动实现getter和setter
-#pragma mark 四则运算
-/**
- 加法（NSString或NSNumber）
- */
-@property (nonatomic, copy, readonly) NSString *(^add)(id num);
-/**
- 减法（NSString或NSNumber）
- */
-@property (nonatomic, copy, readonly) NSString *(^sub)(id num);
-/**
- 乘法（NSString或NSNumber）
- */
-@property (nonatomic, copy, readonly) NSString *(^mul)(id num);
-/**
- 除法（NSString或NSNumber）
- */
-@property (nonatomic, copy, readonly) NSString *(^div)(id num);
-/**
- 返回本身（NSString或NSNumber）
- */
-@property (nonatomic, copy, readonly) NSString *(^itself)(id num);
-
-#pragma mark 格式化输出
-/**
- 四舍五入（小数位数）
- */
-@property (nonatomic, copy, readonly) NSString *(^roundPlain)(short scale);
-/**
- 四舍五入（小数位数）末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^roundPlainWithZeroFill)(short scale);
-/**
- 只舍不入（小数位数）
- */
-@property (nonatomic, copy, readonly) NSString *(^roundDown)(short scale);
-/**
- 只舍不入（小数位数）末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^roundDownWithZeroFill)(short scale);
-/**
- 只入不舍（小数位数）
- */
-@property (nonatomic, copy, readonly) NSString *(^roundUp)(short scale);
-/**
- 只入不舍（小数位数）末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^roundUpWithZeroFill)(short scale);
-
-#pragma mark 千分位格式化
-/**
- 四舍五入（小数位数）千分位格式化输出（逗号分割），小数末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^formatToThousandsWithRoundPlain)(short scale);
-/**
- 只舍不入（小数位数）千分位格式化输出（逗号分割），小数末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^formatToThousandsWithRoundDown)(short scale);
-/**
- 只入不舍（小数位数）千分位格式化输出（逗号分割），小数末尾有0补位
- */
-@property (nonatomic, copy, readonly) NSString *(^formatToThousandsWithRoundUp)(short scale);
-
-#pragma mark 大小比较
-/**
- 比较（RLNaNError：操作数不是数字；RLOrderedAscending：self<num；RLOrderedSame：self==num；RLOrderedDescending：self>num）
- */
-@property (nonatomic, copy, readonly) RLComparisonResult (^compare)(id num);
+@interface NSString (RLArithmetic)<RLArithmeticiable>
 
 @end
 
