@@ -47,6 +47,7 @@
 		0E2ABDED1FFF7823000520CB /* NSString+RLArithmetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RLArithmetic.h"; sourceTree = "<group>"; };
 		0E2ABDEE1FFF7823000520CB /* NSString+RLArithmetic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RLArithmetic.m"; sourceTree = "<group>"; };
 		0E2ABDF11FFF7924000520CB /* RLArithmetic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLArithmetic.h; sourceTree = "<group>"; };
+		99CEA85525FB99AC007AA823 /* RLArithmeticiable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLArithmeticiable.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +120,7 @@
 				0E2ABDED1FFF7823000520CB /* NSString+RLArithmetic.h */,
 				0E2ABDEE1FFF7823000520CB /* NSString+RLArithmetic.m */,
 				0E2ABDF11FFF7924000520CB /* RLArithmetic.h */,
+				99CEA85525FB99AC007AA823 /* RLArithmeticiable.h */,
 			);
 			path = RLArithmetic;
 			sourceTree = "<group>";
